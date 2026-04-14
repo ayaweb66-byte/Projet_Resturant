@@ -1,91 +1,128 @@
+/* ===== GLOBAL ===== */
 body {
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
     margin: 0;
-    font-family: Arial;
-    min-height: 100vh;
+    padding: 20px;
+}
 
-    background: #1f2937;
+/* ===== TITRES ===== */
+h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th {
+    background: #34495e;
     color: white;
-    padding: 30px;
-}
-.container{
-    max-width:900px;
-    margin:auto;
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    padding: 12px;
+    font-size: 16px;
 }
 
-h2{
-    text-align:center;
-    margin-bottom:20px;
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+tr:hover {
+    background: #f1f6ff;
 }
 
-th{
-    background:#0b55a4d8;
-    color:white;
-    padding:12px;
-}
-
-td{
-    padding:10px;
-    text-align:center;
-    border-bottom:1px solid #ddd;
-}
-
-tr:hover{
-    background:#5490c5;
-}
-
-.btn{
-    padding:6px 10px;
-    border-radius:5px;
-    text-decoration:none;
-    color:white;
-
-}
-.btn.add {
-    display: block;
-    width: fit-content;
-    margin: 20px auto 0 auto; /* auto = center */
-    padding: 10px 15px;
-    background-color: #28a745;
-    color: white;
+/* ===== BUTTON BASE ===== */
+a {
     text-decoration: none;
+    padding: 8px 14px;
     border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s;
+    display: inline-block;
+    margin: 2px;
+}
+
+/* ===== ADD BUTTON ===== */
+a[href*="add_panier"] {
+    background: #27ae60;
+    color: white;
+}
+
+a[href*="add_panier"]:hover {
+    background: #1e8449;
+    transform: scale(1.05);
+}
+
+/* ===== REMOVE BUTTON ===== */
+a[href*="remove_panier"] {
+    background: #e74c3c;
+    color: white;
+}
+
+a[href*="remove_panier"]:hover {
+    background: #c0392b;
+    transform: scale(1.05);
+}
+
+/* ===== VALIDATE BUTTON ===== */
+a[href*="valider"] {
+    background: #2980b9;
+    color: white;
     font-weight: bold;
-    margin-top: 60px;
-    
+    display: block;
+    width: 220px;
+    margin: 25px auto;
+    text-align: center;
 }
 
-.btn.add:hover {
-    background-color: #218838;
-}
-.edit{
-    background:#28a745;
+a[href*="valider"]:hover {
+    background: #1f5f8b;
+    transform: scale(1.05);
 }
 
-.delete{
-    background:#dc3545;
+/* ===== PANIER SECTION ===== */
+h3 {
+    text-align: center;
+    color: #2c3e50;
 }
 
-.add-btn{
-    display:block;
-    width:150px;
-    margin:15px auto;
-    text-align:center;
-    background:#043569;
-    color:white;
-    padding:10px;
-    border-radius:6px;
-    text-decoration:none;
+/* panier box */
+.panier-box {
+    width: 60%;
+    margin: 20px auto;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.add-btn:hover{
-    background:#1d7fe8;
+/* item panier */
+.panier-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.panier-item:last-child {
+    border-bottom: none;
+}
+
+/* total */
+.total {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #27ae60;
 }

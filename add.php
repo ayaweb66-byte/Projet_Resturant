@@ -1,116 +1,187 @@
 <?php
+session_start();
 include "../db.php";
+
+if (!isset($_SESSION['client_id'])) {
+    $_SESSION['client_id'] = 1; // demo
+}
+
+/* =========================
+   ADD TO PANIER (EXAMPLE)
+========================= */
+if (isset($_GET['add'])) {
+
+    $id = intval($_GET['add']);
+
+    if (!isset($_SESSION['panier'][$id])) {
+        $_SESSION['panier'][$id] = 1;
+    } else {
+        $_SESSION['panier'][$id]++;
+    }
+
+    header("Location: add.php");
+    exit;
+}
+
+/* =========================
+   VALIDATE COMMANDE
+========================= */
+if (isset($_POST['valider'])) {
+
+    if (empty($_SESSION['panier'])) {
+        die("<script>alert('Panier vide');window.location='add.php';</script>");
+    }
+
+    $client_id = intval($_SESSION['client_id']);
+
+    /* 1. CREATE COMMANDE */
+    $sql = "INSERT INTO commande (client_id) VALUES ($client_id)";
+    mysqli_query($conn, $sql);
+
+    $commande_id = mysqli_insert_id($conn);
+
+    if (!$commande_id) {
+        die("Erreur commande_id");
+    }
+
+    /* 2. INSERT ITEMS */
+    foreach ($_SESSION['panier'] as $id => $qte) {
+
+        $id = intval($id);
+        $qte = intval($qte);
+
+        $sql2 = "INSERT INTO ligne_commande (commande_id, plat_id, quantite)
+                 VALUES ($commande_id, $id, $qte)";
+
+        mysqli_query($conn, $sql2);
+    }
+
+    /* 3. SAVE LAST ORDER */
+    $_SESSION['last_commande_id'] = $commande_id;
+
+    /* 4. CLEAR PANIER */
+    unset($_SESSION['panier']);
+
+    echo "<script>
+        alert('Commande enregistrée');
+        window.location='add.php';
+    </script>";
+    exit;
+}
+
+/* =========================
+   GET PLATS
+========================= */
+$sql = "SELECT * FROM plat";
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Restaurant</title>
-
+<title>Panier</title>
 <style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#74ebd5,#9face6);
-    font-family:Arial;
-}
-
-form{
-    background:white;
-    padding:25px;
-    width:320px;
-    border-radius:12px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
-}
-
-h2{
-    text-align:center;
-    margin-bottom:15px;
-    color:#333;
-}
-
-input, select{
-    width:100%;
-    padding:10px;
-    margin-bottom:10px;
-    border:1px solid #ccc;
-    border-radius:6px;
-}
-
-button{
-    width:100%;
-    padding:10px;
-    background:#007bff;
-    color:white;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#0056b3;
-}
+body {font-family:Arial;background:#f4f6f8;}
+table {width:70%;margin:auto;background:white;border-collapse:collapse;}
+th,td {border:1px solid #ddd;padding:10px;text-align:center;}
+th {background:#2d3436;color:white;}
+button {padding:10px;background:#6c5ce7;color:white;border:none;}
 </style>
-
 </head>
-
 <body>
 
-<form action="" method="POST">
-    <h2>Ajouter un plat</h2>
+<h2 style="text-align:center;">🍽 Plats</h2>
 
-    <input type="text" name="nom" placeholder="Nom du plat" required>
+<table>
+<tr>
+    <th>Nom</th>
+    <th>Prix</th>
+    <th>Action</th>
+</tr>
 
-    <input type="number" step="0.01" name="prix" placeholder="Prix" required>
+<?php while($row = mysqli_fetch_assoc($result)) { ?>
+<tr>
+    <td><?= $row['nom'] ?></td>
+    <td><?= $row['prix'] ?> DH</td>
+    <td>
+        <a href="?add=<?= $row['id'] ?>">➕ Ajouter</a>
+    </td>
+</tr>
+<?php } ?>
 
-    <select name="categorie_id" required>
-        <option value="">-- Choisir une catégorie --</option>
+</table>
 
-        <?php
-        // ✅ منع التكرار
-        $result = mysqli_query($conn, "SELECT MIN(id) as id, nom FROM categorie GROUP BY nom");
+<!-- PANIER -->
+<h2 style="text-align:center;">🛒 Panier</h2>
 
-        while($row = mysqli_fetch_assoc($result)){
-            echo "<option value='".$row['id']."'>".$row['nom']."</option>";
-        }
-        ?>
-    </select>
-
-    <button type="submit">Ajouter</button>
-</form>
+<div style="width:60%;margin:auto;background:white;padding:10px;">
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (!empty($_SESSION['panier'])) {
 
-    // ✅ حماية
-    $nom = htmlspecialchars($_POST['nom']);
-    $prix = $_POST['prix'];
-    $categorie_id = $_POST['categorie_id'];
+    $total = 0;
 
-    if (!empty($nom) && !empty($prix) && !empty($categorie_id)) {
+    foreach ($_SESSION['panier'] as $id => $qte) {
 
-        // ✅ prepared statement (حماية من SQL Injection)
-        $stmt = $conn->prepare("INSERT INTO plat (nom, prix, categorie_id) VALUES (?, ?, ?)");
-        $stmt->bind_param("sdi", $nom, $prix, $categorie_id);
+        $res = mysqli_query($conn, "SELECT nom, prix FROM plat WHERE id=$id");
+        $p = mysqli_fetch_assoc($res);
 
-        if ($stmt->execute()) {
-            echo "<script>
-                alert('✅ Plat ajouté avec succès');
-                window.location.href='get.php';
-            </script>";
-        } else {
-            echo "<script>alert('❌ Erreur');</script>";
-        }
+        $sub = $p['prix'] * $qte;
+        $total += $sub;
 
-    } else {
-        echo "<script>alert('⚠️ Remplis tous les champs');</script>";
+        echo "<div>{$p['nom']} x $qte = $sub DH</div>";
     }
+
+    echo "<h3>Total: $total DH</h3>";
+
+} else {
+    echo "Panier vide";
 }
 ?>
+
+</div>
+
+<form method="POST" style="text-align:center;">
+    <button name="valider">✅ Valider commande</button>
+</form>
+
+<!-- FIX LINK -->
+<div style="text-align:center;margin-top:20px;">
+<?php if (isset($_SESSION['last_commande_id'])): ?>
+
+<style>
+    .btn-commande {
+        display: inline-block;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, #0984e3, #6c5ce7);
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: 0.3s ease;
+    }
+
+    .btn-commande:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        background: linear-gradient(135deg, #6c5ce7, #0984e3);
+    }
+
+    .btn-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="btn-container">
+    <a class="btn-commande" href="details_commande.php?id=<?= $_SESSION['last_commande_id'] ?>">
+        📦 Voir ma commande
+    </a>
+</div>
+
+<?php endif; ?>
+</div>
 
 </body>
 </html>

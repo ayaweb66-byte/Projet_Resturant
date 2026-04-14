@@ -1,9 +1,18 @@
+
+
+
 <?php
+session_start();
 include "../db.php";
 
-$sql = "SELECT plat.*, categorie.nom AS categorie_nom
-        FROM plat
-        LEFT JOIN categorie ON plat.categorie_id = categorie.id";
+$sql = "SELECT 
+            commande.id AS commande_id,
+            commande.date_commande,
+            client.nom AS client_nom,
+            client.email
+        FROM commande
+        JOIN client ON commande.client_id = client.id
+        ORDER BY commande.date_commande DESC";
 
 $result = mysqli_query($conn, $sql);
 ?>
@@ -11,72 +20,38 @@ $result = mysqli_query($conn, $sql);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Liste des plats</title>
-    <link rel="stylesheet" href="style2.css">
-
-    <style>
-        .top-actions {
-            text-align:center;
-            margin:20px;
-        }
-
-        .btn {
-            padding:8px 12px;
-            text-decoration:none;
-            border-radius:5px;
-            margin:5px;
-            display:inline-block;
-        }
-
-        .add {
-            background:green;
-            color:white;
-        }
-
-        .orders {
-            background:#0984e3;
-            color:white;
-        }
-    </style>
+    <title>Commandes</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<h2 style="text-align:center;">🍽 Liste des plats</h2>
+<h2>🧾 Liste des commandes</h2>
 
-<!-- ACTION BUTTONS -->
-<div class="top-actions">
 
-    <a class="btn add" href="add.php">➕ Ajouter un plat</a>
+<table border="1" width="80%" align="center">
+<tr>
+    <th>ID Commande</th>
+    <th>Client</th>
+    <th>Email</th>
+    <th>Date</th>
+    <th>Détails</th>
+</tr>
 
-    <!-- FIXED LINK -->
-    <a class="btn orders" href="../commande/get.php">
-        📦 Voir les commandes reçues
-    </a>
+<?php while($row = mysqli_fetch_assoc($result)) { ?>
+<tr>
+    <td><?= $row['commande_id'] ?></td>
+    <td><?= $row['client_nom'] ?></td>
+    <td><?= $row['email'] ?></td>
+    <td><?= $row['date_commande'] ?></td>
+    <td>
+        
+<a href="../commande/details_commande.php?id=<?= $row['commande_id'] ?>">
+    👁 Voir
+</a>
 
-</div>
-
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Prix</th>
-        <th>Catégorie</th>
-        <th>Actions</th>
-    </tr>
-
-    <?php while($row = mysqli_fetch_assoc($result)) { ?>
-    <tr>
-        <td><?= $row['id'] ?></td>
-        <td><?= $row['nom'] ?></td>
-        <td><?= $row['prix'] ?> DH</td>
-        <td><?= $row['categorie_nom'] ?></td>
-        <td>
-            <a class="btn edit" href="edit.php?id=<?= $row['id'] ?>">✏️ Edit</a>
-            <a class="btn delete" href="delete.php?id=<?= $row['id'] ?>" onclick="return confirm('Supprimer ce plat ?')">❌ Delete</a>
-        </td>
-    </tr>
-    <?php } ?>
+    </td>
+</tr>
+<?php } ?>
 
 </table>
 
