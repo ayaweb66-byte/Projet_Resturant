@@ -1,0 +1,91 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    min-height: 100vh;
+
+    background: #1f2937;
+    color: white;
+    padding: 30px;
+}
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#0b55a4d8;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:10px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#5490c5;
+}
+
+.btn{
+    padding:6px 10px;
+    border-radius:5px;
+    text-decoration:none;
+    color:white;
+
+}
+.btn.add {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0 auto; /* auto = center */
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 60px;
+    
+}
+
+.btn.add:hover {
+    background-color: #218838;
+}
+.edit{
+    background:#28a745;
+}
+
+.delete{
+    background:#dc3545;
+}
+
+.add-btn{
+    display:block;
+    width:150px;
+    margin:15px auto;
+    text-align:center;
+    background:#043569;
+    color:white;
+    padding:10px;
+    border-radius:6px;
+    text-decoration:none;
+}
+
+.add-btn:hover{
+    background:#1d7fe8;
+}

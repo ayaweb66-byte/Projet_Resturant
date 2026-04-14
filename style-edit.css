@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    min-height: 100vh;
+
+    background: #1f2937;
+    color: white;
+    padding: 30px;
+}
+
+/* card */
+form {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    margin: 40px auto; /* أهم سطر باش يوسط الفورم */
+
+    background: white;
+    width: 320px;
+    padding: 25px;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    margin: 20px auto;
+    color: white;
+    background: #0f7be6;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    width: fit-content;
+}
+
+/* inputs */
+input, select{
+    
+    width:100%;
+    padding:10px;
+    margin-bottom:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    outline:none;
+    transition:0.3s;
+    font-size:14px;
+    
+}
+
+input:focus, select:focus{
+    border-color:#007bff;
+    box-shadow:0 0 5px rgba(0,123,255,0.3);
+}
+
+/* button */
+button{
+    width:100%;
+    padding:12px;
+    background:#28a745;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#218838;
+}
+
+/* spacing fix */
+br{
+    display:none;
+}
