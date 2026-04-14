@@ -1,0 +1,464 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 1;
+    color: black; 
+}
+body{
+    font-family: sans-serif;
+    color:white;
+}
+html{
+    scroll-behavior: smooth;
+}
+.nav img{
+    width: 80px;
+    margin-left:50px;
+}
+.nav{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-right:  100px;
+    gap: 60px;
+}
+ul li a{
+    text-decoration: none;
+    font-size: 20;
+    color:white;
+}
+ul li a:hover{
+    border-bottom: 2px solid orange;
+    padding: 10px ;
+}
+a{
+    text-decoration: none;  
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+
+}
+.content h1,#gallery h2{
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+}
+.content h1 span{
+    color:orange
+}
+.content p{
+    margin: 20px 0;
+    font-size: 26px;
+}
+.btn,.btn2{
+    display: inline-block;
+  padding:10px 25px;
+  border-radius: 15px;
+  color: beige;
+  border: 1px solid white;
+}
+.btn:hover{
+    background-color: orange;
+}
+main{
+    z-index: 1;
+    height: 100vh;
+}
+.contenair{
+    color: black;
+    margin: auto;
+    max-width: 1800px;
+    
+}
+#offers{
+    background-color: blue;
+}
+.about{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: azure;
+}
+.about-content {
+    display: flex;
+    justify-content:space-between;
+}
+.about-content img{
+    width: 400px;
+}
+.about-content p{
+    margin-right: 70px;
+    height: 19vh;
+    margin-top: 30px;
+    align-items: center;
+    line-height:1.5;
+    color: gray;
+    text-align: center;
+    
+    
+}
+.btn2{
+    background-color: gray;
+    margin-bottom: 50px;
+    margin-top: 90px;
+    margin-left: 233px;
+}
+.btn2:hover,.btn3:hover,.btn5:hover{
+  background-color: orangered;
+  cursor: pointer;
+}
+
+
+.title{
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+
+
+}
+.title h2{
+    color: orange;
+    font-size: 30px;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    text-transform:capitalize;
+    
+}
+.title p{
+    color: black;
+    color: gray;
+    letter-spacing: 2px;
+    font-size: 16px;
+    font-weight: 600;
+}
+#offers{
+    background: url(img/offer-background.jpg) center center/cover fixed ;
+   
+}
+.offers-itemes{
+    display: flex;
+    justify-content: space-between;
+   align-items: center;
+   text-align: center;
+   color: white;
+
+
+}
+.offers-itemes h3{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+}
+.offers-itemes p{
+   margin-right: 10px;
+   text-align: center;
+   margin-bottom: 10px;
+   font-size: 17px;
+   color: white;
+  
+
+}
+.offers-itemes del{
+    color:orangered;
+    margin-right: 8px;
+}
+.offers-itemes span{
+    color: green;
+    font-size: 25px;
+}
+.menu-item img{
+    width: 100px;
+    border-radius: 50%;
+}
+.menu-items{
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: black;
+    margin: 20px;
+}
+
+.menu-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+.menu-item h3{
+    color: chocolate;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+.menu-item h3 span{
+    color: orange;
+    margin: 30px;
+}
+.btn3{
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: orange;
+    color: white;
+    padding: 8px;
+  /*  position: absolute;
+    left: 40%;*/
+    display: block;
+    margin: auto;
+    
+}
+.btn3:hover{
+    background-color: gray;
+    cursor: pointer;
+}
+.contenair4{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url(img/daytime_bg.jpeg) ;
+    height: 100vh;
+  
+   
+}
+.daytime-item h3{
+    margin: 10px;
+    color: white;
+    text-transform: uppercase;
+    margin-left: 10px;
+    margin-right: 10px;
+    
+
+}
+.daytime-item {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.daytime-item p{
+    text-align: center;
+    color: white;
+}
+.daytime-item img{
+    margin: 20px;
+}
+
+/*gallery*/
+#gallery{
+    background-image:url(img/offer-background.jpg);
+   padding: 8rem 0 6rem;
+   height: 130vh;
+
+}
+.image{
+    align-items: center;
+    text-align: center;
+}
+.image img{
+    width: 280px;
+    height: 200px;
+    border-radius: 15px;
+    margin: 30px;
+}
+.contenair5{
+    justify-content: center;
+    align-items: center;  
+}
+#gallery h2{
+    color: orange;
+   text-align: center;
+   padding: 20px;
+   margin-top: 50px;
+}
+
+/*contact*/
+.content2{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+    font-size: 28px;
+}
+.contact-info h3{
+    font-size: 20px;
+    color: chocolate;
+    margin: 20px;
+    
+}
+.contact-info p{
+    font-size: 14px;
+
+    
+}
+.contact-info a i{
+    font-size: 20px;
+   margin:6px;
+   padding: 10px;
+   background-color: gray;
+   border-radius: 50%;
+    
+}
+.contact-info .aya p{
+   margin: 19px;
+   text-align: center;
+}
+.contact-info p i{
+    margin:13px;
+    font-size: 20px;
+}
+form input,form textarea{
+    display: block;
+    margin: 18px;
+    padding: 15px;
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: rgba(128, 128, 128, 0.548);
+    z-index: 1;
+    color:white;
+}
+.btn5{
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: gray;
+    color: white;
+    padding: 8px;
+  /*  position: absolute;
+    left: 40%;*/
+    display: block;
+    margin: auto;
+    width: 100px;
+}
+header{
+    height: 100vh;
+    background:url(img/home_bg.jpeg) center;
+    background-repeat: repeat;
+    background-size: cover;
+ }
+    @media screen and (max-width:900px){
+         *{
+            font-size: 13px;
+         }
+         header{
+            height: 100vh;
+            background:url(img/home_bg.jpeg) center;
+            background-repeat: repeat;
+            background-size: cover;
+            width:105%;
+            }
+        body{
+            font-family: sans-serif;
+            width: 100%;
+        }
+        .content .span1{
+            font-size: 33px;
+            font-weight: 900;
+        }
+        .nav img{
+            width: 50px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        .content h1,#gallery h2{
+            font-size: 20px;
+            font-weight: 300;
+            color: white;
+        }
+        .contenair .about-content{
+            display: block;
+        }
+        .contenair .about-content img{
+            margin-top: 90px;
+            margin-left: 40px;
+            width: 40%;
+            height: 190px;
+        }
+        .offers-itemes img{
+            width: 90px;
+        }
+        #offers{
+            width: 100%;
+        }
+       .offers-itemes p{
+            font-size: 14px;
+        }
+        .daytime-item {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .daytime-item p{
+            text-align: center;
+            color: white;
+        }
+        .daytime-item img{
+            margin: 10px;
+            width: 50px;
+        }
+         .nav ul{
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-right: 50px;
+            gap: 30px;
+        }
+        .content h1{
+            font-size: 30px;
+            font-weight: 600;
+        }
+        .content p{
+            margin: 20px 0;
+            font-size: 18px;
+            color: black;
+        }
+        ul li a:hover{
+            border-bottom:1px solid orange;
+            padding: 0;
+        }
+        .menu-item img{
+            width: 80px;
+            border-radius: 50%;
+        }
+        .menu-items{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: black;
+            margin: 10px;
+        }
+        .menu-items{
+            background-color: beige;
+            height: 130%;
+          
+        }
+        head{
+            width:90%;
+        }
+        .daytime-item p{
+            margin-top:-29px;
+            margin-bottom: 12px;
+        }
+        .contenair4 {
+            display:block;
+        }
+        .contenair4 .daytime-item img{
+            width: 10%;
+        }
+        .contenair5 img{
+            width: 170px;
+            height: 130px;
+        }
+        .menu-items{
+            display: block;
+            color: black;
+            margin: 10px;
+        }
+    } 
