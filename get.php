@@ -1,56 +1,110 @@
-
-
-
 <?php
-session_start();
 include "../db.php";
 
-$sql = "SELECT 
-            commande.id AS commande_id,
-            commande.date_commande,
-            client.nom AS client_nom,
-            client.email
-        FROM commande
-        JOIN client ON commande.client_id = client.id
-        ORDER BY commande.date_commande DESC";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+$sql = "SELECT id, nom 
+        FROM categorie 
+        WHERE id IN (
+            SELECT MAX(id) 
+            FROM categorie 
+            GROUP BY nom
+        )
+       ";
 $result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Commandes</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Liste des catégories</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f4f6f9;
+}
+
+table{
+    width:70%;
+    margin:30px auto;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+th{
+    background:#2d3436;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f1f1f1;
+}
+
+a.delete{
+    color:white;
+    background:#d63031;
+    padding:6px 12px;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+a.delete:hover{
+    background:#b71c1c;
+}
+
+h2{
+    text-align:center;
+}
+</style>
+
 </head>
+
 <body>
 
-<h2>🧾 Liste des commandes</h2>
+<h2>📂 Liste des catégories</h2>
 
-
-<table border="1" width="80%" align="center">
+<table>
 <tr>
-    <th>ID Commande</th>
-    <th>Client</th>
-    <th>Email</th>
-    <th>Date</th>
-    <th>Détails</th>
+    <th>ID</th>
+    <th>Nom</th>
+    <th>Action</th>
 </tr>
 
-<?php while($row = mysqli_fetch_assoc($result)) { ?>
-<tr>
-    <td><?= $row['commande_id'] ?></td>
-    <td><?= $row['client_nom'] ?></td>
-    <td><?= $row['email'] ?></td>
-    <td><?= $row['date_commande'] ?></td>
-    <td>
-        
-<a href="../commande/details_commande.php?id=<?= $row['commande_id'] ?>">
-    👁 Voir
-</a>
+<?php if(mysqli_num_rows($result) > 0){ ?>
 
-    </td>
+    <?php while($row = mysqli_fetch_assoc($result)) { ?>
+
+    <tr>
+        <td><?= $row['id'] ?></td>
+        <td><?= $row['nom'] ?></td>
+        <td>
+            <a class="delete"
+               href="delete.php?id=<?= $row['id'] ?>"
+               onclick="return confirm('Supprimer cette catégorie ?')">
+               ❌ Supprimer
+            </a>
+        </td>
+    </tr>
+
+    <?php } ?>
+
+<?php } else { ?>
+
+<tr>
+    <td colspan="3">Aucune catégorie trouvée</td>
 </tr>
+
 <?php } ?>
 
 </table>
